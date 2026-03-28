@@ -1,0 +1,34 @@
+from pydantic import BaseModel, Field
+from typing import Optional
+
+
+class Filter:
+
+    class Valves(BaseModel):
+
+        priority: int = Field(
+            default=0, description="過濾器操作的優先順序，數字越小優先級越高。"
+        )
+        max_turns: int = Field(
+            default=8, description="全域最大對話輪數限制，管理員可調整。"
+        )
+        pass
+
+    class UserValves(BaseModel):
+
+        max_turns: int = Field(default=4, description="使用者個人的最大對話輪數限制。")
+        pass
+
+    def __init__(self):
+        self.valves = self.Valves()
+        pass
+
+    def inlet(self, body: dict, __user__: Optional[dict] = None) -> dict:
+        print("使用者輸入: ")
+
+        return body
+
+    def outlet(self, body: dict, __user__: Optional[dict] = None) -> dict:
+        print("模型輸出: ")
+
+        return body
